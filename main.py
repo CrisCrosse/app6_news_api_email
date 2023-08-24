@@ -25,7 +25,10 @@ for index,article in enumerate(content["articles"]):
     article_title = article["title"]
     article_author = article["author"]
 
-    message = message + f"""Article {index+1}:\n {article_title} \n Written by: {article_author} \n"""
+    try:
+       message = message + f"""Article {index+1}:\n {article_title} \n Written by: {article_author} \n\n"""
+    except AttributeError:
+        print("None error")
 
 # the error message was because some of the source articles or the API were
 # encoding the non-unicode characters into ascii to be transferred in bytes
