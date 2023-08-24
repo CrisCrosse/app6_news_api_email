@@ -24,16 +24,13 @@ From your kind self
 for index,article in enumerate(content["articles"]):
     article_title = article["title"]
     article_author = article["author"]
-    try:
-        print(article_title.encode('ascii'))
-        print(article_author.encode('ascii'))
-        message = message + f"""Article {index+1}:\n {article_title} \n Written by: {article_author} \n"""
-    except UnicodeEncodeError:
-        print(f"""article {index+1} not able to be encoded and is skipped""")
-    except AttributeError:
-        "one of the title or authors was blank"
 
-print(message)
+    message = message + f"""Article {index+1}:\n {article_title} \n Written by: {article_author} \n"""
+
+# the error message was because some of the source articles or the API were
+# encoding the non-unicode characters into ascii to be transferred in bytes
+# therefore just need to convert all characters to utf-8 for transfer
+message = message.encode("utf-8")
 send_email(message=message)
 
 
