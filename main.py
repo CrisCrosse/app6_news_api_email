@@ -21,19 +21,17 @@ From your kind self
 """
 
 # iterate over articles and check for encoding errors, non ascii doesn't work for some reason
-for index,article in enumerate(content["articles"]):
+for index, article in enumerate(content["articles"]):
     article_title = article["title"]
     article_author = article["author"]
 
     try:
-       message = message + f"""Article {index+1}:\n {article_title} \n Written by: {article_author} \n\n"""
+        message = message + f"""Article {index+1}:\n {article_title} \n Written by: {article_author} \n\n"""
     except AttributeError:
         print("None error")
 
-# the error message was because some of the source articles or the API were
+# the error message was because some source articles or the API were
 # encoding the non-unicode characters into ascii to be transferred in bytes
 # therefore just need to convert all characters to utf-8 for transfer
 message = message.encode("utf-8")
 send_email(message=message)
-
-
