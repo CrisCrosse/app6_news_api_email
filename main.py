@@ -1,10 +1,15 @@
 import requests
 from send_email import send_email
 
+search_topic = "tesla"
 api_key = '2910116ee77c40b0a0d87c348e893a14'
-url = "https://newsapi.org/v2/everything?q=te" \
-      "sla&from=2023-07-24&sortBy=publishedAt&ap" \
-      "iKey=2910116ee77c40b0a0d87c348e893a14"
+url = "https://newsapi.org/v2/everything?" \
+      f"q={search_topic}&" \
+      "sortBy=publishedAt&" \
+      "apiKey=2910116ee77c40b0a0d87c348e893a14&" \
+      "language=en"
+
+# "from=2023-07-25&" \
 
 # Make request to get data
 request = requests.get(url)
@@ -21,12 +26,13 @@ From your kind self
 """
 
 # iterate over articles and check for encoding errors, non ascii doesn't work for some reason
-for index, article in enumerate(content["articles"]):
+for index, article in enumerate(content["articles"][:20]):
     article_title = article["title"]
     article_author = article["author"]
-
+    article_url = article["url"]
     try:
-        message = message + f"""Article {index+1}:\n {article_title} \n Written by: {article_author} \n\n"""
+        message = message + f"""Article {index+1}:\n {article_title} 
+        Written by: {article_author} \n {article_url} \n\n"""
     except AttributeError:
         print("None error")
 
