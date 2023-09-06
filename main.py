@@ -25,7 +25,8 @@ From your kind self
 
 """
 
-# iterate over articles and check for encoding errors, non ascii doesn't work for some reason
+# iterate over articles, try and except
+# for encoding problems but fixed with 42nd line
 for index, article in enumerate(content["articles"][:20]):
     article_title = article["title"]
     article_author = article["author"]
